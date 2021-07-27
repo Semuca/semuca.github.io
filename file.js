@@ -83,7 +83,7 @@ function Tick() {
     for (var i = 0; i < 32; i++) {
       for (var j = 0; j < 32; j++) {
         for (var k = 0; k < points.length; k++) {
-          if (points[i][0] === i && points[i][1] === j) {
+          if (points[k][0] === i && points[k][1] === j) {
             _poop = false;
           }
         }
