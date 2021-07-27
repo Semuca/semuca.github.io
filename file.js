@@ -2,8 +2,9 @@ const canvas = document.getElementById("myCanvas").getContext("2d");
 const scoreLabel = document.getElementById("score");
 const highScoreLabel = document.getElementById("hScore");
 
+let clock;
 let score = 0;
-let highScore = 0;
+let highScore = 0; //Connor you goddamn weenisman you better fuckin not touch this
 let direction;
 let points = [];
 let cherries = [];
@@ -14,28 +15,36 @@ window.addEventListener("keydown", keyDown);
 
 function keyDown(e) {
   switch (e.code) {
+    case "KeyW":
     case "ArrowUp":
-      if (direction != "Down") {
+      if (direction != "Down" && direction != "Up") {
         direction = "Up";
+        Tick();
       }
       break;
 
+    case "KeyA":
     case "ArrowLeft":
-    if (direction != "Right") {
-      direction = "Left";
-    }
+      if (direction != "Right" && direction != "Left") {
+        direction = "Left";
+        Tick();
+      }
       break;
 
+    case "KeyS":
     case "ArrowDown":
-    if (direction != "Up") {
-      direction = "Down";
-    }
+      if (direction != "Up" && direction != "Down") {
+        direction = "Down";
+        Tick();
+      }
       break;
 
+    case "KeyD":
     case "ArrowRight":
-    if (direction != "Left") {
-      direction = "Right";
-    }
+      if (direction != "Left" && direction != "Right") {
+        direction = "Right";
+        Tick();
+      }
       break;
 
     default:
@@ -109,7 +118,8 @@ function Tick() {
     highScoreLabel.textContent = "High Score: " + score;
     highScore = score;
   }
-  setTimeout(Tick, 500 / Math.floor(points.length / 3));
+  clearTimeout(clock);
+  clock = setTimeout(Tick, 400 / Math.floor(points.length / 3));
 }
 
 function Reset() {
@@ -120,7 +130,7 @@ function Reset() {
   cherries = [];
   canvas.clearRect(0, 0, 320, 320);
   Render();
-  setTimeout(Tick, 500);
+  clock = setTimeout(Tick, 400);
 }
 
 function Render() {
