@@ -1,7 +1,9 @@
 const canvas = document.getElementById("myCanvas").getContext("2d");
-const label = document.getElementById("label");
+const scoreLabel = document.getElementById("score");
+const highScoreLabel = document.getElementById("hScore");
 
 let score = 0;
+let highScore = 0;
 let direction;
 let points = [];
 let cherries = [];
@@ -62,7 +64,7 @@ function Tick() {
       points.push(_endValue);
       cherries.splice(i, 1);
       score++;
-      label.textContent = "Score: " + score;
+      scoreLabel.textContent = "Score: " + score;
     }
   }
   Render();
@@ -103,11 +105,16 @@ function Tick() {
       }
     }
   }
+  if (score > highScore) {
+    highScoreLabel.textContent = "High Score: " + score;
+    highScore = score;
+  }
   setTimeout(Tick, 500 / Math.floor(points.length / 3));
 }
 
 function Reset() {
   score = 0;
+  scoreLabel.textContent = "Score: " + score;
   direction = "Right";
   points = [[2, 1], [1, 1], [0, 1]]; //x, y
   cherries = [];
